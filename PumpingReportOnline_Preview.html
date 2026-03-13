@@ -1,0 +1,1948 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pumping Report Online</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        /* ============================================
+           PUMPING REPORT ONLINE - DESIGN SYSTEM
+           BSRC Corporate Identity Theme
+           ============================================ */
+        :root {
+            --primary: #48A23F;
+            --primary-light: #5BB952;
+            --primary-dark: #3A8A32;
+            --accent: #EA7600;
+            --accent-light: #FF9A2E;
+            --accent-dark: #C86400;
+            --success: #48A23F;
+            --success-light: #E2F5E0;
+            --danger: #ED1C24;
+            --danger-light: #FDE8E9;
+            --warning: #EA7600;
+            --warning-light: #FFF0DB;
+            --info: #48A23F;
+            --info-light: #E2F5E0;
+            --bg-body: #F1F2F2;
+            --bg-card: #FFFFFF;
+            --bg-sidebar: #131313;
+            --bg-sidebar-hover: #212529;
+            --text-primary: #212529;
+            --text-secondary: #5E5E5E;
+            --text-muted: #94A3B8;
+            --border-color: #E2E8F0;
+            --border-light: #F1F2F2;
+            --sidebar-width: 260px;
+            --topbar-height: 60px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.04);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html { font-size: 14px; scroll-behavior: smooth; }
+        @media (min-width: 768px) { html { font-size: 14.5px; } }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* TOP NAVBAR */
+        .top-navbar {
+            position: fixed; top: 0; left: 0; right: 0;
+            height: var(--topbar-height);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex; align-items: center; padding: 0 24px;
+            z-index: 1040;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .sidebar-toggle {
+            background: none; border: none; color: white; font-size: 1.5rem;
+            cursor: pointer; padding: 4px 8px; border-radius: var(--radius-sm);
+            transition: background var(--transition-fast);
+        }
+        .sidebar-toggle:hover { background: rgba(255,255,255,0.1); }
+        .top-navbar-brand {
+            display: flex; align-items: center; text-decoration: none; gap: 12px;
+        }
+        .brand-icon {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, #FFFFFF, #E2F5E0);
+            border-radius: var(--radius-md);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary); font-size: 1.2rem;
+            box-shadow: 0 2px 8px rgba(72, 162, 63, 0.3);
+        }
+        .brand-text { display: flex; flex-direction: column; }
+        .brand-title { color: white; font-weight: 700; font-size: 1rem; line-height: 1.2; letter-spacing: -0.3px; }
+        .brand-subtitle { color: rgba(255,255,255,0.5); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; }
+        .top-navbar-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+        .navbar-clock { color: rgba(255,255,255,0.7); font-size: 0.85rem; font-variant-numeric: tabular-nums; font-weight: 500; letter-spacing: 0.5px; }
+        .navbar-divider { width: 1px; height: 32px; background: rgba(255,255,255,0.15); }
+        .navbar-user { display: flex; align-items: center; gap: 10px; padding: 6px 12px; border-radius: var(--radius-md); cursor: default; }
+        .user-avatar { width: 34px; height: 34px; background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.15)); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 1rem; }
+        .user-info { display: flex; flex-direction: column; }
+        .user-name { color: white; font-size: 0.82rem; font-weight: 600; line-height: 1.2; }
+        .user-role { color: rgba(255,255,255,0.45); font-size: 0.68rem; font-weight: 400; }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed; top: var(--topbar-height); left: 0; bottom: 0;
+            width: var(--sidebar-width); background: var(--bg-sidebar);
+            overflow-y: auto; overflow-x: hidden; z-index: 1030;
+            transition: transform var(--transition-base);
+            display: flex; flex-direction: column;
+            scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+        .sidebar-section-label { padding: 20px 24px 8px; font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.25); letter-spacing: 1.5px; text-transform: uppercase; }
+        .sidebar-section-label:first-child { padding-top: 16px; }
+        .sidebar-link {
+            display: flex; align-items: center; gap: 12px; padding: 10px 24px;
+            color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem;
+            font-weight: 500; transition: all var(--transition-fast);
+            border-left: 3px solid transparent; cursor: pointer;
+        }
+        .sidebar-link i { font-size: 1.1rem; width: 22px; text-align: center; transition: transform var(--transition-fast); }
+        .sidebar-link:hover { color: rgba(255,255,255,0.9); background: var(--bg-sidebar-hover); border-left-color: rgba(255,255,255,0.2); }
+        .sidebar-link:hover i { transform: scale(1.1); }
+        .sidebar-link.active { color: #FFFFFF; background: rgba(72, 162, 63, 0.15); border-left-color: var(--primary); font-weight: 600; }
+        .sidebar-link.active i { color: var(--primary-light); }
+        .sidebar-bottom { margin-top: auto; padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; gap: 4px; }
+        .sidebar-status { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.45); font-size: 0.75rem; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 8px rgba(72, 162, 63, 0.5); animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1025; backdrop-filter: blur(2px); }
+
+        @media (max-width: 991.98px) {
+            .sidebar { transform: translateX(-100%); }
+            body.sidebar-open .sidebar { transform: translateX(0); }
+            body.sidebar-open .sidebar-overlay { display: block; }
+            .main-content { margin-left: 0 !important; }
+        }
+        @media (min-width: 992px) {
+            .main-content { transition: margin-left var(--transition-base); }
+            body.sidebar-collapsed .sidebar { transform: translateX(-100%); }
+            body.sidebar-collapsed .main-content { margin-left: 0 !important; }
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: var(--sidebar-width); margin-top: var(--topbar-height);
+            min-height: calc(100vh - var(--topbar-height));
+            display: flex; flex-direction: column;
+            transition: margin-left var(--transition-base);
+        }
+        .breadcrumb-bar { padding: 12px 28px; background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
+        .breadcrumb-bar .breadcrumb { font-size: 0.8rem; }
+        .breadcrumb-bar .breadcrumb-item a { color: var(--text-secondary); text-decoration: none; }
+        .breadcrumb-bar .breadcrumb-item a:hover { color: var(--primary); }
+        .breadcrumb-bar .breadcrumb-item.active { color: var(--text-muted); }
+        .content-area { flex: 1; padding: 24px 28px; }
+        .main-footer { padding: 16px 28px; background: var(--bg-card); border-top: 1px solid var(--border-color); font-size: 0.78rem; color: var(--text-muted); }
+
+        /* CARDS */
+        .card { border: 1px solid var(--border-color); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); transition: box-shadow var(--transition-base); overflow: hidden; background: var(--bg-card); }
+        .card:hover { box-shadow: var(--shadow-md); }
+        .card-header { font-weight: 600; font-size: 0.9rem; padding: 14px 20px; border-bottom: 1px solid var(--border-color); }
+        .card-body { padding: 20px; }
+
+        /* STAT CARDS */
+        .stat-card { border: none; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); position: relative; overflow: hidden; transition: all var(--transition-base); }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+        .stat-card .stat-icon { position: absolute; right: -8px; bottom: -8px; font-size: 5rem; opacity: 0.06; transform: rotate(-10deg); }
+        .stat-card .stat-value { font-size: 2.2rem; font-weight: 800; line-height: 1; letter-spacing: -1px; margin-bottom: 4px; }
+        .stat-card .stat-label { font-size: 0.78rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.7; }
+        .stat-card .stat-trend { display: inline-flex; align-items: center; gap: 4px; font-size: 0.72rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-top: 8px; }
+        .stat-card.stat-blue { background: linear-gradient(135deg, #3A8A32, #48A23F); color: white; }
+        .stat-card.stat-green { background: linear-gradient(135deg, #3A8A32, #5BB952); color: white; }
+        .stat-card.stat-amber { background: linear-gradient(135deg, #C86400, #EA7600); color: white; }
+        .stat-card.stat-red { background: linear-gradient(135deg, #C41920, #ED1C24); color: white; }
+
+        /* PUMPING TABLE */
+        .pumping-table { font-size: 0.8rem; margin-bottom: 0; table-layout: fixed; width: 100%; }
+        .pumping-table th { vertical-align: middle; text-align: center; white-space: nowrap; padding: 8px 6px; font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.3px; background: #D5DCE4 !important; color: #1E293B !important; border-color: #B8C4D0 !important; overflow: hidden; text-overflow: ellipsis; }
+        .pumping-table thead tr:nth-child(2) th { background: #E2E8F0 !important; font-size: 0.7rem; color: #334155 !important; }
+        .pumping-table td { vertical-align: middle; padding: 6px 6px; border-color: var(--border-color); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pumping-table td:last-child { overflow: visible; } /* ACTIONS column */
+        .pumping-table tbody tr { transition: background var(--transition-fast); }
+        .pumping-table tbody tr:hover { background: rgba(72, 162, 63, 0.04) !important; }
+        .pumping-table tbody tr:nth-child(even) { background: var(--border-light); }
+
+        /* REPORT HEADER */
+        .report-header { border: 1.5px solid #B8C4D0 !important; border-radius: var(--radius-lg) !important; background: linear-gradient(135deg, #D5DCE4 0%, #E2E8F0 100%) !important; color: var(--text-primary); padding: 24px !important; box-shadow: var(--shadow-md); }
+        .report-header h4, .report-header h5 { color: #1E293B !important; }
+        .report-header .badge { background: rgba(30, 41, 59, 0.1) !important; color: #334155 !important; }
+
+        /* CATEGORY CARD */
+        .category-card { border: 1.5px solid #C8D1DC; border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-sm); transition: all var(--transition-base); }
+        .category-card:hover { box-shadow: var(--shadow-md); border-color: #B8C4D0; }
+        .category-card .card-header { background: linear-gradient(135deg, #D5DCE4, #E2E8F0) !important; color: #1E293B !important; padding: 12px 20px; border: none; border-bottom: 1px solid #C8D1DC; font-size: 0.88rem; font-weight: 600; }
+        .category-card .card-header .badge { background: rgba(30, 41, 59, 0.12) !important; color: #334155 !important; font-weight: 500; }
+
+        /* FORM STYLES */
+        .form-control, .form-select { border: 1.5px solid var(--border-color); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 0.88rem; transition: all var(--transition-fast); background-color: var(--bg-card); }
+        .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(72, 162, 63, 0.15); outline: none; }
+        .form-label { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+        .form-section { border: 1.5px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden; margin-bottom: 20px; }
+        .form-section .card-header { padding: 12px 20px; font-size: 0.88rem; }
+        .form-section.section-opening { border-color: #A3D99C; }
+        .form-section.section-opening .card-header { background: linear-gradient(135deg, #E2F5E0, #F0FAF0) !important; color: var(--primary-dark); border-bottom: 1px solid #A3D99C; }
+        .form-section.section-closing { border-color: #F5C88A; }
+        .form-section.section-closing .card-header { background: linear-gradient(135deg, #FFF0DB, #FFF8EE) !important; color: var(--accent-dark); border-bottom: 1px solid #F5C88A; }
+        .form-section.section-extra { border-color: #CBD5E1; }
+        .form-section.section-extra .card-header { background: linear-gradient(135deg, #F1F5F9, #F8FAFC) !important; color: var(--text-secondary); border-bottom: 1px solid #CBD5E1; }
+
+        /* BUTTONS */
+        .btn { font-weight: 600; font-size: 0.85rem; border-radius: var(--radius-sm); padding: 8px 18px; transition: all var(--transition-fast); letter-spacing: 0.2px; border: 1.5px solid transparent; }
+        .btn:active { transform: scale(0.97); }
+        .btn-primary { background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-color: var(--primary); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, var(--primary-light), var(--primary)); box-shadow: 0 4px 12px rgba(72, 162, 63, 0.3); transform: translateY(-1px); }
+        .btn-success { background: linear-gradient(135deg, #3A8A32, #48A23F); border-color: #3A8A32; color: white; }
+        .btn-success:hover { background: linear-gradient(135deg, #48A23F, #5BB952); box-shadow: 0 4px 12px rgba(72, 162, 63, 0.3); transform: translateY(-1px); color: white; }
+        .btn-warning { background: linear-gradient(135deg, var(--accent-dark), var(--accent)); border-color: var(--accent-dark); color: white; }
+        .btn-warning:hover { background: linear-gradient(135deg, var(--accent), var(--accent-light)); box-shadow: 0 4px 12px rgba(234, 118, 0, 0.3); color: white; transform: translateY(-1px); }
+        .btn-danger { background: linear-gradient(135deg, #C41920, #ED1C24); border-color: #C41920; color:white; }
+        .btn-outline-primary { color: var(--primary); border-color: var(--primary); }
+        .btn-outline-primary:hover { background: var(--primary); color: white; }
+
+        /* QUICK ACTION */
+        .quick-action-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; border-radius: var(--radius-md); border: 2px dashed var(--border-color); background: var(--bg-card); color: var(--text-secondary); text-decoration: none; transition: all var(--transition-base); font-weight: 600; font-size: 0.85rem; gap: 10px; }
+        .quick-action-btn i { font-size: 2rem; transition: transform var(--transition-base); }
+        .quick-action-btn:hover { border-color: var(--primary); background: rgba(72, 162, 63, 0.05); color: var(--primary); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .quick-action-btn:hover i { transform: scale(1.15); }
+        .quick-action-btn.action-primary:hover { border-color: var(--primary); background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white; }
+        .quick-action-btn.action-success:hover { border-color: var(--success); background: linear-gradient(135deg, #3A8A32, #48A23F); color: white; }
+        .quick-action-btn.action-export:hover { border-color: var(--accent); background: linear-gradient(135deg, var(--accent-dark), var(--accent)); color: white; }
+
+        /* BADGE */
+        .badge { font-weight: 600; font-size: 0.7rem; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.3px; }
+
+        /* TABLE */
+        .table { font-size: 0.85rem; }
+        .table thead th { font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-secondary); padding: 12px 14px; border-bottom: 2px solid var(--border-color); }
+        .table tbody td { padding: 10px 14px; vertical-align: middle; border-color: var(--border-light); }
+        .table-hover tbody tr:hover { background-color: rgba(72, 162, 63, 0.03); }
+
+        /* PAGE HEADER */
+        .page-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 16px; }
+        .page-header-info h2 { font-weight: 800; letter-spacing: -0.5px; margin-bottom: 2px; color: var(--text-primary); }
+        .page-header-info .page-subtitle { font-size: 0.85rem; color: var(--text-muted); font-weight: 400; }
+
+        /* FILTER PANEL */
+        .filter-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+        .filter-panel .filter-title { font-weight: 700; font-size: 1rem; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; color: var(--text-primary); }
+        .result-count { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; background: var(--info-light); color: var(--info); border-radius: 20px; font-weight: 600; font-size: 0.82rem; }
+
+        /* MASTER DATA */
+        .master-card { border: none; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 40px 24px; text-align: center; transition: all var(--transition-base); position: relative; overflow: hidden; background: var(--bg-card); }
+        .master-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+        .master-card.card-tanks::before { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+        .master-card.card-products::before { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+        .master-card.card-categories::before { background: linear-gradient(90deg, var(--danger), #F54B52); }
+        .master-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl); }
+        .master-card .master-icon { width: 72px; height: 72px; margin: 0 auto 20px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .master-card.card-tanks .master-icon { background: linear-gradient(135deg, var(--success-light), #F0FAF0); color: var(--primary); }
+        .master-card.card-products .master-icon { background: linear-gradient(135deg, var(--warning-light), #FFF8EE); color: var(--accent); }
+        .master-card.card-categories .master-icon { background: linear-gradient(135deg, var(--danger-light), #FFF0F0); color: var(--danger); }
+
+        /* EXPORT CARDS */
+        .export-card { border: 2px solid var(--border-color); border-radius: var(--radius-lg); padding: 40px 24px; text-align: center; transition: all var(--transition-base); background: var(--bg-card); cursor: pointer; }
+        .export-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+        .export-card.card-excel { border-color: #A3D99C; }
+        .export-card.card-excel:hover { background: linear-gradient(135deg, #F0FAF0, #E2F5E0); }
+        .export-card.card-csv { border-color: #CBD5E1; }
+        .export-card.card-csv:hover { background: linear-gradient(135deg, #F8FAFC, #F1F5F9); }
+        .export-icon { width: 80px; height: 80px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; transition: transform var(--transition-base); }
+        .export-card:hover .export-icon { transform: scale(1.1) rotate(-5deg); }
+        .export-card.card-excel .export-icon { background: var(--success-light); color: var(--primary); }
+        .export-card.card-csv .export-icon { background: var(--border-light); color: var(--text-secondary); }
+
+        /* GAUGE BAR */
+        .gauge-bar { height: 6px; border-radius: 3px; background: var(--border-color); overflow: hidden; }
+        .gauge-bar .gauge-fill { height: 100%; border-radius: 3px; transition: width 1s ease-out; background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+
+        /* LIST GROUP */
+        .list-group-modern .list-group-item { border: none; border-bottom: 1px solid var(--border-light); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .list-group-modern .list-group-item:last-child { border-bottom: none; }
+        .list-group-modern .list-group-item:hover { background: var(--border-light); }
+
+        /* ANIMATIONS */
+        .fade-in { animation: fadeIn var(--transition-slow) ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-up { animation: slideUp var(--transition-slow) ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .anim-delay-1 { animation-delay: 50ms; animation-fill-mode: both; }
+        .anim-delay-2 { animation-delay: 100ms; animation-fill-mode: both; }
+        .anim-delay-3 { animation-delay: 150ms; animation-fill-mode: both; }
+        .anim-delay-4 { animation-delay: 200ms; animation-fill-mode: both; }
+        .anim-delay-5 { animation-delay: 250ms; animation-fill-mode: both; }
+        .anim-delay-6 { animation-delay: 300ms; animation-fill-mode: both; }
+
+        /* PAGE SECTIONS */
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+
+        /* PREVIEW RIBBON */
+        .preview-ribbon {
+            position: fixed; top: 70px; right: -45px; z-index: 9999;
+            background: var(--accent); color: white; padding: 6px 50px;
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            transform: rotate(45deg); box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 767.98px) {
+            .content-area { padding: 16px; }
+            .page-header { flex-direction: column; align-items: flex-start; }
+            .stat-card .stat-value { font-size: 1.6rem; }
+            .brand-subtitle { display: none; }
+            .navbar-clock { display: none; }
+            .user-info { display: none; }
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navbar -->
+    <nav class="top-navbar">
+        <div class="d-flex align-items-center w-100">
+            <button class="sidebar-toggle me-2" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
+            <a class="top-navbar-brand" href="#" onclick="showPage('dashboard')">
+                <div class="brand-icon">
+                    <i class="bi bi-droplet-fill"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Pumping Report Online</span>
+                    <span class="brand-subtitle">Digitalize Product Movement</span>
+                </div>
+            </a>
+            <div class="top-navbar-right">
+                <div class="navbar-clock" id="navbarClock"></div>
+                <div class="navbar-divider"></div>
+                <div class="navbar-user">
+                    <div class="user-avatar"><i class="bi bi-person-fill"></i></div>
+                    <div class="user-info">
+                        <span class="user-name">Field Operator</span>
+                        <span class="user-role">Demo Mode</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebarNav">
+        <div class="sidebar-section-label">MAIN MENU</div>
+        <a class="sidebar-link active" onclick="showPage('dashboard')" id="nav-dashboard">
+            <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
+        </a>
+
+        <div class="sidebar-section-label">PUMPING REPORT</div>
+        <a class="sidebar-link" onclick="showPage('report')" id="nav-report">
+            <i class="bi bi-file-earmark-text-fill"></i><span>Daily Report</span>
+        </a>
+        <a class="sidebar-link" onclick="showPage('create')" id="nav-create">
+            <i class="bi bi-plus-circle-fill"></i><span>New Entry</span>
+        </a>
+        <a class="sidebar-link" onclick="showPage('search')" id="nav-search">
+            <i class="bi bi-search"></i><span>Search / Filter</span>
+        </a>
+
+        <div class="sidebar-section-label">DATA & EXPORT</div>
+        <a class="sidebar-link" onclick="showPage('export')" id="nav-export">
+            <i class="bi bi-cloud-arrow-down-fill"></i><span>Export Report</span>
+        </a>
+
+        <div class="sidebar-section-label">ADMINISTRATION</div>
+        <a class="sidebar-link" onclick="showPage('masterdata')" id="nav-masterdata">
+            <i class="bi bi-sliders"></i><span>Master Data</span>
+        </a>
+        <a class="sidebar-link" onclick="showPage('tanks')" id="nav-tanks">
+            <i class="bi bi-database-fill"></i><span>Manage Tanks</span>
+        </a>
+        <a class="sidebar-link" onclick="showPage('products')" id="nav-products">
+            <i class="bi bi-box-seam-fill"></i><span>Manage Products</span>
+        </a>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-status">
+                <div class="status-dot"></div>
+                <span>Pumping Report Online v1.0</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Sidebar Overlay for mobile -->
+    <div class="sidebar-overlay" onclick="document.body.classList.remove('sidebar-open')"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <nav class="breadcrumb-bar" aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0" id="breadcrumbBar">
+                <li class="breadcrumb-item"><a href="#" onclick="showPage('dashboard')"><i class="bi bi-house-fill"></i></a></li>
+                <li class="breadcrumb-item active" id="breadcrumbPage">Dashboard</li>
+            </ol>
+        </nav>
+
+        <main role="main" class="content-area">
+
+            <!-- ==================== PAGE: DASHBOARD ==================== -->
+            <div class="page-section active" id="page-dashboard">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-grid-1x2-fill me-2"></i>Dashboard</h2>
+                        <span class="page-subtitle">System Overview โ€” Pumping Report Online</span>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-dark px-3 py-2" style="font-size:0.85rem;">
+                            <i class="bi bi-calendar3 me-1"></i>26 February 2026
+                        </span>
+                    </div>
+                </div>
+
+                <!-- KPI Cards -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6 col-xl-3 slide-up anim-delay-1">
+                        <div class="stat-card stat-blue p-4">
+                            <div class="stat-label">Today's Activities</div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-trend" style="background:rgba(255,255,255,0.15);"><i class="bi bi-graph-up-arrow"></i> Active today</div>
+                            <i class="bi bi-activity stat-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 slide-up anim-delay-2">
+                        <div class="stat-card stat-green p-4">
+                            <div class="stat-label">Total Tanks</div>
+                            <div class="stat-value">45</div>
+                            <div class="stat-trend" style="background:rgba(255,255,255,0.15);"><i class="bi bi-check-circle"></i> All registered</div>
+                            <i class="bi bi-database stat-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 slide-up anim-delay-3">
+                        <div class="stat-card stat-amber p-4">
+                            <div class="stat-label">Product Types</div>
+                            <div class="stat-value">18</div>
+                            <div class="stat-trend" style="background:rgba(255,255,255,0.15);"><i class="bi bi-box-seam"></i> Product types</div>
+                            <i class="bi bi-box-seam stat-icon"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 slide-up anim-delay-4">
+                        <div class="stat-card stat-red p-4">
+                            <div class="stat-label">Revisions</div>
+                            <div class="stat-value">3</div>
+                            <div class="stat-trend" style="background:rgba(255,255,255,0.15);"><i class="bi bi-pencil-square"></i> Revisions</div>
+                            <i class="bi bi-pencil-square stat-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions + Category Summary -->
+                <div class="row g-4 mb-4">
+                    <div class="col-lg-8 fade-in anim-delay-3">
+                        <div class="card h-100">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-lightning-charge-fill me-2 text-warning"></i><strong>Quick Actions</strong></span>
+                            </div>
+                            <div class="card-body d-flex align-items-center">
+                                <div class="row g-3 w-100">
+                                    <div class="col-md-4">
+                                        <a href="#" onclick="showPage('create')" class="quick-action-btn action-primary w-100 h-100">
+                                            <i class="bi bi-plus-circle-fill"></i>
+                                            <span>New Entry</span>
+                                            <small class="text-muted" style="font-weight:400;">Create New Entry</small>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="#" onclick="showPage('report')" class="quick-action-btn action-success w-100 h-100">
+                                            <i class="bi bi-file-earmark-text-fill"></i>
+                                            <span>View Pumping Report</span>
+                                            <small class="text-muted" style="font-weight:400;">View Daily Report</small>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="#" onclick="showPage('export')" class="quick-action-btn action-export w-100 h-100">
+                                            <i class="bi bi-cloud-arrow-down-fill"></i>
+                                            <span>Export Report</span>
+                                            <small class="text-muted" style="font-weight:400;">Download Excel/CSV</small>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 fade-in anim-delay-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-white">
+                                <i class="bi bi-pie-chart-fill me-2 text-primary"></i><strong>Summary by Category</strong>
+                            </div>
+                            <div class="card-body p-0" style="max-height: 280px; overflow-y: auto;">
+                                <div class="list-group list-group-flush list-group-modern">
+                                    <div class="list-group-item">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <small class="fw-semibold" style="font-size:0.78rem;">Product from Unit</small>
+                                                <span class="badge bg-primary rounded-pill">4</span>
+                                            </div>
+                                            <div class="gauge-bar"><div class="gauge-fill" style="width:100%;"></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <small class="fw-semibold" style="font-size:0.78rem;">Crude Feed APS-1</small>
+                                                <span class="badge bg-primary rounded-pill">3</span>
+                                            </div>
+                                            <div class="gauge-bar"><div class="gauge-fill" style="width:75%;"></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <small class="fw-semibold" style="font-size:0.78rem;">Transfer/Blending (From)</small>
+                                                <span class="badge bg-primary rounded-pill">2</span>
+                                            </div>
+                                            <div class="gauge-bar"><div class="gauge-fill" style="width:50%;"></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <small class="fw-semibold" style="font-size:0.78rem;">Loading to Berth</small>
+                                                <span class="badge bg-primary rounded-pill">2</span>
+                                            </div>
+                                            <div class="gauge-bar"><div class="gauge-fill" style="width:50%;"></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item">
+                                        <div class="flex-grow-1 me-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <small class="fw-semibold" style="font-size:0.78rem;">Water Drainage</small>
+                                                <span class="badge bg-primary rounded-pill">1</span>
+                                            </div>
+                                            <div class="gauge-bar"><div class="gauge-fill" style="width:25%;"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activities -->
+                <div class="card fade-in anim-delay-5 mb-4">
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-clock-history me-2 text-info"></i><strong>Recent Activities</strong></span>
+                        <a href="#" onclick="showPage('report')" class="btn btn-sm btn-outline-primary"><i class="bi bi-arrow-right me-1"></i>View All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr><th>ID</th><th>Category</th><th>Oil Type</th><th>Tank</th><th>Opening Level</th><th>Closing Level</th><th>Recorded By</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge bg-dark">1</span></td>
+                                    <td><span class="d-inline-block text-truncate" style="max-width:180px;">Crude Feed APS-1</span></td>
+                                    <td><strong class="text-primary">CRUDE</strong></td>
+                                    <td><span class="badge bg-light text-dark border">901</span></td>
+                                    <td class="text-end font-monospace">5,200</td>
+                                    <td class="text-end font-monospace">4,850</td>
+                                    <td><small class="text-muted">Operator A</small></td>
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" title="View"><i class="bi bi-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-warning py-0 px-2" title="Edit"><i class="bi bi-pencil"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">2</span></td>
+                                    <td><span class="d-inline-block text-truncate" style="max-width:180px;">Product from Unit</span></td>
+                                    <td><strong class="text-primary">GASOLINE</strong></td>
+                                    <td><span class="badge bg-light text-dark border">305</span></td>
+                                    <td class="text-end font-monospace">3,100</td>
+                                    <td class="text-end font-monospace">3,450</td>
+                                    <td><small class="text-muted">Operator B</small></td>
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" title="View"><i class="bi bi-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-warning py-0 px-2" title="Edit"><i class="bi bi-pencil"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">3</span></td>
+                                    <td><span class="d-inline-block text-truncate" style="max-width:180px;">Transfer/Blending (From)</span></td>
+                                    <td><strong class="text-primary">DIESEL</strong></td>
+                                    <td><span class="badge bg-light text-dark border">502</span></td>
+                                    <td class="text-end font-monospace">7,800</td>
+                                    <td class="text-end font-monospace">7,200</td>
+                                    <td><small class="text-muted">Operator A</small></td>
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" title="View"><i class="bi bi-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-warning py-0 px-2" title="Edit"><i class="bi bi-pencil"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">4</span></td>
+                                    <td><span class="d-inline-block text-truncate" style="max-width:180px;">Loading to Berth</span></td>
+                                    <td><strong class="text-primary">FUEL OIL</strong></td>
+                                    <td><span class="badge bg-light text-dark border">710</span></td>
+                                    <td class="text-end font-monospace">9,500</td>
+                                    <td class="text-end font-monospace">6,200</td>
+                                    <td><small class="text-muted">Operator C</small></td>
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" title="View"><i class="bi bi-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-warning py-0 px-2" title="Edit"><i class="bi bi-pencil"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">5</span></td>
+                                    <td><span class="d-inline-block text-truncate" style="max-width:180px;">Water Drainage</span></td>
+                                    <td><strong class="text-primary">WATER</strong></td>
+                                    <td><span class="badge bg-light text-dark border">901</span></td>
+                                    <td class="text-end font-monospace">150</td>
+                                    <td class="text-end font-monospace">20</td>
+                                    <td><small class="text-muted">Operator A</small></td>
+                                    <td class="text-nowrap">
+                                        <button class="btn btn-sm btn-outline-primary py-0 px-2" title="View"><i class="bi bi-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-warning py-0 px-2" title="Edit"><i class="bi bi-pencil"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: DAILY REPORT ==================== -->
+            <div class="page-section" id="page-report">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-file-earmark-text-fill me-2"></i>Daily Pumping Report</h2>
+                        <span class="page-subtitle">Daily oil pumping report</span>
+                    </div>
+                    <div class="d-flex gap-2 align-items-center flex-wrap">
+                        <div class="input-group" style="width:auto;">
+                            <span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span>
+                            <input type="date" value="2026-02-26" class="form-control" style="width:170px" />
+                            <button class="btn btn-primary"><i class="bi bi-search me-1"></i>Search</button>
+                        </div>
+                        <a href="#" onclick="showPage('create')" class="btn btn-success"><i class="bi bi-plus-circle-fill me-1"></i>New Entry</a>
+                    </div>
+                </div>
+
+                <div class="pumping-report-container fade-in">
+                    <div class="report-header text-center mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-12">
+                                <h4 class="mb-1 fw-bold" style="letter-spacing:1px;">REFINING DEPARTMENT</h4>
+                                <h5 class="mb-0 fw-semibold" style="opacity:0.85;">DAILY PUMPING REPORT</h5>
+                                <div class="mt-2">
+                                    <span class="badge px-3 py-2" style="background:rgba(30,41,59,0.1); color:#334155; font-size:0.85rem;">
+                                        <i class="bi bi-calendar-check me-1"></i>26 February 2026
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category 1: CRUDE FEED TO APS-1 -->
+                    <div class="category-card mb-4 slide-up anim-delay-1">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>CRUDE FEED TO APS-1 UNIT</span>
+                            </div>
+                            <span class="badge rounded-pill">2 entries</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">CRUDE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">901</span></td>
+                                        <td class="text-end font-monospace">5,200</td>
+                                        <td class="text-end font-monospace">12.50</td>
+                                        <td class="text-end font-monospace">85.0</td>
+                                        <td class="text-center">06:00</td>
+                                        <td>Mr. A</td>
+                                        <td class="text-end font-monospace">4,850</td>
+                                        <td class="text-end font-monospace">12.30</td>
+                                        <td class="text-end font-monospace">86.2</td>
+                                        <td class="text-center">18:00</td>
+                                        <td>Mr. B</td>
+                                        <td><small class="text-muted">Normal operation</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="View"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-primary">CRUDE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">902</span></td>
+                                        <td class="text-end font-monospace">8,100</td>
+                                        <td class="text-end font-monospace">8.20</td>
+                                        <td class="text-end font-monospace">84.5</td>
+                                        <td class="text-center">06:00</td>
+                                        <td>Mr. A</td>
+                                        <td class="text-end font-monospace">7,650</td>
+                                        <td class="text-end font-monospace">8.10</td>
+                                        <td class="text-end font-monospace">85.0</td>
+                                        <td class="text-center">18:00</td>
+                                        <td>Mr. B</td>
+                                        <td>-</td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="View"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 2: CRUDE FEED TO APS-2 UNIT -->
+                    <div class="category-card mb-4 slide-up anim-delay-2">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>CRUDE FEED TO APS-2 UNIT</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">CRUDE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">903</span></td>
+                                        <td class="text-end font-monospace">6,400</td>
+                                        <td class="text-end font-monospace">10.20</td>
+                                        <td class="text-end font-monospace">83.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. A</td>
+                                        <td class="text-end font-monospace">5,900</td>
+                                        <td class="text-end font-monospace">10.10</td>
+                                        <td class="text-end font-monospace">84.0</td>
+                                        <td class="text-center">18:00</td><td>Mr. B</td>
+                                        <td><small class="text-muted">Normal operation</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="View"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 3: D-86 FEED TO TAP UNIT -->
+                    <div class="category-card mb-4 slide-up anim-delay-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>D-86 FEED TO TAP UNIT</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">D-86</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">401</span></td>
+                                        <td class="text-end font-monospace">2,800</td>
+                                        <td class="text-end font-monospace">1.50</td>
+                                        <td class="text-end font-monospace">72.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. A</td>
+                                        <td class="text-end font-monospace">2,350</td>
+                                        <td class="text-end font-monospace">1.40</td>
+                                        <td class="text-end font-monospace">73.5</td>
+                                        <td class="text-center">18:00</td><td>Mr. B</td>
+                                        <td>-</td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="View"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 4: HVN SWEET FEED TO APS-1 or APS-2 UNIT -->
+                    <div class="category-card mb-4 slide-up anim-delay-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>HVN SWEET FEED TO APS-1 or APS-2 UNIT</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">HVN SWEET</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">603</span></td>
+                                        <td class="text-end font-monospace">4,500</td>
+                                        <td class="text-end font-monospace">3.20</td>
+                                        <td class="text-end font-monospace">88.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. A</td>
+                                        <td class="text-end font-monospace">4,100</td>
+                                        <td class="text-end font-monospace">3.10</td>
+                                        <td class="text-end font-monospace">89.0</td>
+                                        <td class="text-center">18:00</td><td>Mr. B</td>
+                                        <td><small class="text-muted">Feed to APS-1</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="View"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 5: VGO COLD FEED TO FCCU UNIT -->
+                    <div class="category-card mb-4 slide-up anim-delay-5">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>VGO COLD FEED TO FCCU UNIT</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">VGO</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">550</span></td>
+                                        <td class="text-end font-monospace">3,200</td>
+                                        <td class="text-end font-monospace">0.80</td>
+                                        <td class="text-end font-monospace">65.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">2,750</td>
+                                        <td class="text-end font-monospace">0.75</td>
+                                        <td class="text-end font-monospace">66.0</td>
+                                        <td class="text-center">18:00</td><td>Mr. D</td>
+                                        <td>-</td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1" title="View"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1" title="Edit"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 6: PRODUCT FROM UNIT -->
+                    <div class="category-card mb-4 slide-up anim-delay-6">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>PRODUCT FROM UNIT</span>
+                            </div>
+                            <span class="badge rounded-pill">3 entries</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">GASOLINE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">305</span></td>
+                                        <td class="text-end font-monospace">3,100</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">78.5</td>
+                                        <td class="text-center">06:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">3,450</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">79.0</td>
+                                        <td class="text-center">18:00</td><td>Mr. D</td>
+                                        <td>-</td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-primary">DIESEL</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">502</span></td>
+                                        <td class="text-end font-monospace">6,200</td>
+                                        <td class="text-end font-monospace">2.10</td>
+                                        <td class="text-end font-monospace">90.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">6,800</td>
+                                        <td class="text-end font-monospace">2.05</td>
+                                        <td class="text-end font-monospace">91.2</td>
+                                        <td class="text-center">18:00</td><td>Mr. D</td>
+                                        <td><span class="badge bg-warning text-dark" style="font-size:0.65rem;">Rev.1</span></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-primary">LPG</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">201</span></td>
+                                        <td class="text-end font-monospace">1,800</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">45.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">2,150</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">44.8</td>
+                                        <td class="text-center">18:00</td><td>Mr. D</td>
+                                        <td>-</td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 7: NORMAL TRANSFER AND BLENDING (FROM TANK) -->
+                    <div class="category-card mb-4 slide-up anim-delay-1">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>NORMAL TRANSFER AND BLENDING (FROM TANK)</span>
+                            </div>
+                            <span class="badge rounded-pill">2 entries</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">DIESEL</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">502</span></td>
+                                        <td class="text-end font-monospace">7,800</td>
+                                        <td class="text-end font-monospace">2.00</td>
+                                        <td class="text-end font-monospace">88.0</td>
+                                        <td class="text-center">08:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">7,200</td>
+                                        <td class="text-end font-monospace">1.95</td>
+                                        <td class="text-end font-monospace">89.0</td>
+                                        <td class="text-center">16:00</td><td>Mr. D</td>
+                                        <td><small class="text-muted">Transfer to Tank 504</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-primary">GASOLINE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">306</span></td>
+                                        <td class="text-end font-monospace">4,200</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">76.0</td>
+                                        <td class="text-center">10:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">3,600</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">77.0</td>
+                                        <td class="text-center">15:00</td><td>Mr. D</td>
+                                        <td><small class="text-muted">Blending to Tank 308</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 8: NORMAL TRANSFER AND BLENDING (TO TANK) -->
+                    <div class="category-card mb-4 slide-up anim-delay-2">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>NORMAL TRANSFER AND BLENDING (TO TANK)</span>
+                            </div>
+                            <span class="badge rounded-pill">2 entries</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">DIESEL</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">504</span></td>
+                                        <td class="text-end font-monospace">3,500</td>
+                                        <td class="text-end font-monospace">1.80</td>
+                                        <td class="text-end font-monospace">87.0</td>
+                                        <td class="text-center">08:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">4,100</td>
+                                        <td class="text-end font-monospace">1.85</td>
+                                        <td class="text-end font-monospace">88.5</td>
+                                        <td class="text-center">16:00</td><td>Mr. D</td>
+                                        <td><small class="text-muted">Received from Tank 502</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold text-primary">GASOLINE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">308</span></td>
+                                        <td class="text-end font-monospace">2,100</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">75.5</td>
+                                        <td class="text-center">10:00</td><td>Mr. C</td>
+                                        <td class="text-end font-monospace">2,700</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">76.5</td>
+                                        <td class="text-center">15:00</td><td>Mr. D</td>
+                                        <td><small class="text-muted">Blended from Tank 306</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 9: WATER DRAINAGE -->
+                    <div class="category-card mb-4 slide-up anim-delay-3">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>WATER DRAINAGE</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">WATER</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">901</span></td>
+                                        <td class="text-end font-monospace">5,200</td>
+                                        <td class="text-end font-monospace">150.00</td>
+                                        <td class="text-end font-monospace">85.0</td>
+                                        <td class="text-center">07:00</td><td>Mr. A</td>
+                                        <td class="text-end font-monospace">5,200</td>
+                                        <td class="text-end font-monospace">20.00</td>
+                                        <td class="text-end font-monospace">85.0</td>
+                                        <td class="text-center">09:00</td><td>Mr. A</td>
+                                        <td><small class="text-muted">Water drained 130 mm</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 10: FINISHED PRODUCT TRANSFER TO SRIRACHA MARKETING VIA PIPELINE -->
+                    <div class="category-card mb-4 slide-up anim-delay-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>FINISHED PRODUCT TRANSFER TO SRIRACHA MARKETING VIA PIPELINE (FROM TANK)</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">GASOLINE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">310</span></td>
+                                        <td class="text-end font-monospace">8,500</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">78.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. E</td>
+                                        <td class="text-end font-monospace">6,200</td>
+                                        <td class="text-end font-monospace">0.00</td>
+                                        <td class="text-end font-monospace">78.5</td>
+                                        <td class="text-center">18:00</td><td>Mr. F</td>
+                                        <td><small class="text-muted">Pipeline transfer complete</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 11: FINISHED PRODUCT LOADING TO SRIRACHA MARKETING VIA TANK TRUCK -->
+                    <div class="category-card mb-4 slide-up anim-delay-5">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>FINISHED PRODUCT LOADING TO SRIRACHA MARKETING VIA TANK TRUCK (FROM TANK)</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">DIESEL</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">510</span></td>
+                                        <td class="text-end font-monospace">5,600</td>
+                                        <td class="text-end font-monospace">1.50</td>
+                                        <td class="text-end font-monospace">90.0</td>
+                                        <td class="text-center">07:00</td><td>Mr. E</td>
+                                        <td class="text-end font-monospace">5,350</td>
+                                        <td class="text-end font-monospace">1.45</td>
+                                        <td class="text-end font-monospace">90.5</td>
+                                        <td class="text-center">10:00</td><td>Mr. F</td>
+                                        <td><small class="text-muted">Truck #TK-4521</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 12: FINISHED PRODUCT TRANSFERRING TO THAPPLINE -->
+                    <div class="category-card mb-4 slide-up anim-delay-6">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>FINISHED PRODUCT TRANSFERRING TO THAPPLINE (FROM TANK)</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">DIESEL</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">515</span></td>
+                                        <td class="text-end font-monospace">9,200</td>
+                                        <td class="text-end font-monospace">2.30</td>
+                                        <td class="text-end font-monospace">91.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. E</td>
+                                        <td class="text-end font-monospace">7,500</td>
+                                        <td class="text-end font-monospace">2.20</td>
+                                        <td class="text-end font-monospace">91.5</td>
+                                        <td class="text-center">18:00</td><td>Mr. F</td>
+                                        <td><small class="text-muted">Thappline batch #TPL-0226</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 13: FINISHED PRODUCT LOADING TO BERTH -->
+                    <div class="category-card mb-4 slide-up anim-delay-1">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>FINISHED PRODUCT LOADING TO BERTH (FROM TANK)</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">VESSEL</th>
+                                        <th rowspan="2" class="align-middle">SHIPMENT #</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">FUEL OIL</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">710</span></td>
+                                        <td class="text-end font-monospace">9,500</td>
+                                        <td class="text-end font-monospace">5.00</td>
+                                        <td class="text-end font-monospace">120.0</td>
+                                        <td class="text-center">08:00</td><td>Mr. E</td>
+                                        <td class="text-end font-monospace">6,200</td>
+                                        <td class="text-end font-monospace">4.80</td>
+                                        <td class="text-end font-monospace">118.5</td>
+                                        <td class="text-center">16:00</td><td>Mr. F</td>
+                                        <td>MT. OCEAN STAR</td>
+                                        <td>SH-2026-0142</td>
+                                        <td><small class="text-muted">Loading complete</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Category 14: CRUDE OR PRODUCT RECEIVING FROM BERTH -->
+                    <div class="category-card mb-4 slide-up anim-delay-2">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-chevron-right"></i>
+                                <span>CRUDE OR PRODUCT RECEIVING FROM BERTH (BI / MBM or SBM) TO TANK</span>
+                            </div>
+                            <span class="badge rounded-pill">1 entry</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered pumping-table mb-0">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th rowspan="2" class="align-middle">TYPE OF OIL</th>
+                                        <th colspan="6">OPENING GAUGE</th>
+                                        <th colspan="5">CLOSING GAUGE</th>
+                                        <th rowspan="2" class="align-middle">VESSEL</th>
+                                        <th rowspan="2" class="align-middle">SHIPMENT #</th>
+                                        <th rowspan="2" class="align-middle">REMARK</th>
+                                        <th rowspan="2" class="align-middle" >ACTIONS</th>
+                                    </tr>
+                                    <tr class="text-center">
+                                        <th>Tank No.</th><th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                        <th>Level</th><th>Water</th><th>Temp.</th><th>Time</th><th>Gauger</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold text-primary">CRUDE</td>
+                                        <td class="text-center"><span class="badge bg-light text-dark border">905</span></td>
+                                        <td class="text-end font-monospace">2,100</td>
+                                        <td class="text-end font-monospace">15.00</td>
+                                        <td class="text-end font-monospace">82.0</td>
+                                        <td class="text-center">06:00</td><td>Mr. E</td>
+                                        <td class="text-end font-monospace">8,900</td>
+                                        <td class="text-end font-monospace">18.50</td>
+                                        <td class="text-end font-monospace">83.5</td>
+                                        <td class="text-center">22:00</td><td>Mr. F</td>
+                                        <td>MT. PACIFIC VOYAGER</td>
+                                        <td>SH-2026-0145</td>
+                                        <td><small class="text-muted">Receiving via SBM</small></td>
+                                        <td class="text-center text-nowrap">
+                                            <button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button>
+                                            <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: CREATE NEW ENTRY ==================== -->
+            <div class="page-section" id="page-create">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-plus-circle-fill me-2"></i>Create New Oil Movement Activity</h2>
+                        <span class="page-subtitle">Fill in oil movement details to record in the system</span>
+                    </div>
+                    <a href="#" onclick="showPage('report')" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back to Report</a>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 col-xl-9">
+                        <div class="card fade-in anim-delay-2">
+                            <div class="card-body p-4">
+                                <form onsubmit="return false;">
+                                    <!-- Section 1: Basic Info -->
+                                    <div class="mb-4">
+                                        <h6 class="fw-bold text-uppercase text-muted mb-3" style="letter-spacing:1px; font-size:0.75rem;">
+                                            <i class="bi bi-1-circle-fill me-2 text-primary"></i>Basic Information
+                                        </h6>
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <label class="form-label fw-bold">Activity Category <span class="text-danger">*</span></label>
+                                                <select class="form-select">
+                                                    <option value="">-- Select Category --</option>
+                                                    <option>CRUDE FEED TO APS-1 UNIT</option>
+                                                    <option>CRUDE FEED TO APS-2 UNIT</option>
+                                                    <option>D-86 FEED TO TAP UNIT</option>
+                                                    <option>HVN SWEET FEED TO APS-1 or APS-2 UNIT</option>
+                                                    <option>VGO COLD FEED TO FCCU UNIT</option>
+                                                    <option>PRODUCT FROM UNIT</option>
+                                                    <option>NORMAL TRANSFER AND BLENDING (FROM TANK)</option>
+                                                    <option>NORMAL TRANSFER AND BLENDING (TO TANK)</option>
+                                                    <option>WATER DRAINAGE</option>
+                                                    <option>FINISHED PRODUCT TRANSFER TO SRIRACHA MARKETING VIA PIPELINE</option>
+                                                    <option>FINISHED PRODUCT LOADING TO SRIRACHA MARKETING VIA TANK TRUCK</option>
+                                                    <option>FINISHED PRODUCT TRANSFERRING TO THAPPLINE</option>
+                                                    <option>FINISHED PRODUCT LOADING TO BERTH (FROM TANK)</option>
+                                                    <option>CRUDE OR PRODUCT RECEIVING FROM BERTH TO TANK</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold">Report Date <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span>
+                                                    <input type="date" class="form-control" value="2026-02-26" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-label fw-bold">Oil Type <span class="text-danger">*</span></label>
+                                                <select class="form-select">
+                                                    <option value="">-- Select --</option>
+                                                    <option>CRUDE - Crude Oil</option>
+                                                    <option>GASOLINE - Gasoline</option>
+                                                    <option>DIESEL - Diesel</option>
+                                                    <option>LPG - Liquefied Petroleum Gas</option>
+                                                    <option>FUEL OIL - Fuel Oil</option>
+                                                    <option>JET - Jet Fuel</option>
+                                                    <option>NAPHTHA - Naphtha</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Tank Selection -->
+                                    <div class="mb-4">
+                                        <div class="row g-3 align-items-end">
+                                            <div class="col-md-5">
+                                                <label class="form-label fw-bold">Tank No. <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text bg-white"><i class="bi bi-database"></i></span>
+                                                    <select class="form-select">
+                                                        <option value="">-- Select Tank --</option>
+                                                        <option>201 (LPG) - ATG</option>
+                                                        <option>305 (GASOLINE) - ATG</option>
+                                                        <option>502 (DIESEL) - Manual</option>
+                                                        <option>710 (FUEL OIL) - Manual</option>
+                                                        <option>901 (CRUDE) - ATG</option>
+                                                        <option>902 (CRUDE) - ATG</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7">
+          
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-4" />
+                                    <!-- Opening Gauge -->
+                                    <div class="form-section section-opening mb-4">
+                                        <div class="card-header">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="bi bi-unlock-fill me-2"></i><strong>Opening Gauge</strong></span>
+                                                <small class="text-muted">Step 2 of 4</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <div class="row g-3">
+                                                <div class="col-md-2"><label class="form-label">Level (MM)</label><input type="number" class="form-control" placeholder="0" /></div>
+                                                <div class="col-md-2"><label class="form-label">Water (MM)</label><input type="number" class="form-control" placeholder="0.00" /></div>
+                                                <div class="col-md-2"><label class="form-label">Temp. (F/C)</label><input type="number" class="form-control" placeholder="0.0" /></div>
+                                                <div class="col-md-2"><label class="form-label">Time</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-clock"></i></span><input type="text" class="form-control" placeholder="HH:mm" /></div></div>
+                                                <div class="col-md-4"><label class="form-label">Name of Gauger</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-person"></i></span><input type="text" class="form-control" placeholder="Gauger name" /></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Closing Gauge -->
+                                    <div class="form-section section-closing mb-4">
+                                        <div class="card-header">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="bi bi-lock-fill me-2"></i><strong>Closing Gauge</strong></span>
+                                                <small class="text-muted">Step 3 of 4</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <div class="row g-3">
+                                                <div class="col-md-2"><label class="form-label">Level (MM)</label><input type="number" class="form-control" placeholder="0" /></div>
+                                                <div class="col-md-2"><label class="form-label">Water (MM)</label><input type="number" class="form-control" placeholder="0.00" /></div>
+                                                <div class="col-md-2"><label class="form-label">Temp. (F/C)</label><input type="number" class="form-control" placeholder="0.0" /></div>
+                                                <div class="col-md-2"><label class="form-label">Time</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-clock"></i></span><input type="text" class="form-control" placeholder="HH:mm" /></div></div>
+                                                <div class="col-md-4"><label class="form-label">Name of Gauger</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-person"></i></span><input type="text" class="form-control" placeholder="Gauger name" /></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Additional Info -->
+                                    <div class="form-section section-extra mb-4">
+                                        <div class="card-header">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span><i class="bi bi-info-circle-fill me-2"></i><strong>Additional Info</strong> <small class="fw-normal">(For vessel loading/receiving)</small></span>
+                                                <small class="text-muted">Step 4 of 4</small>
+                                            </div>
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <div class="row g-3">
+                                                <div class="col-md-2"><label class="form-label">Start Pump</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-play-fill text-success"></i></span><input type="text" class="form-control" placeholder="HH:mm" /></div></div>
+                                                <div class="col-md-2"><label class="form-label">Stop Pump</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-stop-fill text-danger"></i></span><input type="text" class="form-control" placeholder="HH:mm" /></div></div>
+                                                <div class="col-md-4"><label class="form-label">Vessel Name</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-tsunami"></i></span><input type="text" class="form-control" placeholder="Vessel name" /></div></div>
+                                                <div class="col-md-2"><label class="form-label">Shipment #</label><input type="text" class="form-control" placeholder="Number" /></div>
+                                                <div class="col-md-2"><label class="form-label">Nomkey</label><input type="text" class="form-control" placeholder="Nomkey" /></div>
+                                            </div>
+                                            <div class="row g-3 mt-1">
+                                                <div class="col-md-4"><label class="form-label">Destination</label><input type="text" class="form-control" placeholder="Destination" /></div>
+                                                <div class="col-md-8"><label class="form-label">Remark</label><input type="text" class="form-control" placeholder="Remarks (if any)" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                        <a href="#" onclick="showPage('report')" class="btn btn-outline-secondary px-4"><i class="bi bi-arrow-left me-1"></i>Go Back</a>
+                                        <button type="button" class="btn btn-success btn-lg px-5" onclick="alert('This is a preview. Save function is not available.')"><i class="bi bi-check-circle-fill me-2"></i>Save Entry</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: SEARCH ==================== -->
+            <div class="page-section" id="page-search">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-search me-2"></i>Search / Filter</h2>
+                        <span class="page-subtitle">Search activities by desired criteria</span>
+                    </div>
+                </div>
+                <div class="filter-panel fade-in anim-delay-1">
+                    <div class="filter-title"><i class="bi bi-funnel-fill text-primary"></i><span>Search Criteria</span></div>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-2"><label class="form-label fw-bold">Start Date</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span><input type="date" value="2026-02-20" class="form-control" /></div></div>
+                        <div class="col-md-2"><label class="form-label fw-bold">End Date</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span><input type="date" value="2026-02-26" class="form-control" /></div></div>
+                        <div class="col-md-2"><label class="form-label fw-bold">Tank No.</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-database"></i></span><input type="text" class="form-control" placeholder="e.g. 901" /></div></div>
+                        <div class="col-md-3"><label class="form-label fw-bold">Category</label><select class="form-select"><option value="">-- All --</option><option>Crude Feed APS-1</option><option>Product from Unit</option><option>Transfer/Blending</option><option>Loading to Berth</option></select></div>
+                        <div class="col-md-2"><label class="form-label fw-bold">Oil Type</label><input type="text" class="form-control" placeholder="e.g. CRUDE" /></div>
+                        <div class="col-md-1 d-flex align-items-end"><button class="btn btn-primary w-100"><i class="bi bi-search me-1"></i>Search</button></div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3 fade-in anim-delay-2">
+                    <div class="result-count"><i class="bi bi-check-circle-fill"></i> Found <strong>6</strong> entries</div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success btn-sm"><i class="bi bi-file-earmark-excel me-1"></i>Export Excel</button>
+                        <button class="btn btn-outline-secondary btn-sm"><i class="bi bi-filetype-csv me-1"></i>Export CSV</button>
+                    </div>
+                </div>
+                <div class="card fade-in anim-delay-3">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr><th>ID</th><th>Category</th><th>Oil Type</th><th>Tank</th><th>Opening Level</th><th>Opening Time</th><th>Closing Level</th><th>Closing Time</th><th>Vessel</th><th>Shipment</th><th>Recorded By</th><th>Remark</th><th>Actions</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge bg-dark">1</span></td><td>Crude Feed APS-1</td>
+                                    <td><strong class="text-primary">CRUDE</strong></td><td><span class="badge bg-light text-dark border">901</span></td>
+                                    <td class="text-end font-monospace">5,200</td><td>06:00</td>
+                                    <td class="text-end font-monospace">4,850</td><td>18:00</td>
+                                    <td>-</td><td>-</td><td><small class="text-muted">Operator A</small></td>
+                                    <td><small class="text-muted">Normal operation</small></td>
+                                    <td class="text-nowrap"><button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button> <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">2</span></td><td>Product from Unit</td>
+                                    <td><strong class="text-primary">GASOLINE</strong></td><td><span class="badge bg-light text-dark border">305</span></td>
+                                    <td class="text-end font-monospace">3,100</td><td>06:00</td>
+                                    <td class="text-end font-monospace">3,450</td><td>18:00</td>
+                                    <td>-</td><td>-</td><td><small class="text-muted">Operator B</small></td>
+                                    <td>-</td>
+                                    <td class="text-nowrap"><button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button> <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">3</span></td><td>Transfer/Blending (From)</td>
+                                    <td><strong class="text-primary">DIESEL</strong></td><td><span class="badge bg-light text-dark border">502</span></td>
+                                    <td class="text-end font-monospace">7,800</td><td>06:00</td>
+                                    <td class="text-end font-monospace">7,200</td><td>18:00</td>
+                                    <td>-</td><td>-</td><td><small class="text-muted">Operator A</small></td>
+                                    <td><small class="text-muted">-</small> <span class="badge bg-warning text-dark" style="font-size:0.65rem;">Rev.1</span></td>
+                                    <td class="text-nowrap"><button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button> <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">4</span></td><td>Loading to Berth</td>
+                                    <td><strong class="text-primary">FUEL OIL</strong></td><td><span class="badge bg-light text-dark border">710</span></td>
+                                    <td class="text-end font-monospace">9,500</td><td>08:00</td>
+                                    <td class="text-end font-monospace">6,200</td><td>16:00</td>
+                                    <td>MT. OCEAN STAR</td><td>SH-2026-0142</td><td><small class="text-muted">Operator C</small></td>
+                                    <td><small class="text-muted">Loading complete</small></td>
+                                    <td class="text-nowrap"><button class="btn btn-outline-primary btn-sm py-0 px-1"><i class="bi bi-eye"></i></button> <button class="btn btn-outline-warning btn-sm py-0 px-1"><i class="bi bi-pencil"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: EXPORT ==================== -->
+            <div class="page-section" id="page-export">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-download me-2"></i>Export Pumping Report</h2>
+                        <span class="page-subtitle">Download report data in Excel or CSV format</span>
+                    </div>
+                </div>
+                <div class="filter-panel fade-in anim-delay-1">
+                    <div class="filter-title"><i class="bi bi-funnel-fill text-primary"></i><span>Export Criteria</span></div>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-3"><label class="form-label fw-bold">Start Date</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span><input type="date" value="2026-02-20" class="form-control" /></div></div>
+                        <div class="col-md-3"><label class="form-label fw-bold">End Date</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-calendar3"></i></span><input type="date" value="2026-02-26" class="form-control" /></div></div>
+                        <div class="col-md-3"><label class="form-label fw-bold">Tank No.</label><div class="input-group"><span class="input-group-text bg-white"><i class="bi bi-database"></i></span><input type="text" class="form-control" placeholder="e.g. 901" /></div></div>
+                        <div class="col-md-3"><label class="form-label fw-bold">Category</label><select class="form-select"><option value="">-- All --</option><option>Crude Feed APS-1</option><option>Product from Unit</option><option>Loading to Berth</option></select></div>
+                    </div>
+                </div>
+                <div class="row g-4 fade-in anim-delay-2">
+                    <div class="col-md-6">
+                        <div class="export-card card-excel" onclick="alert('This is a preview. Download function is not available.')">
+                            <div class="export-icon"><i class="bi bi-file-earmark-excel"></i></div>
+                            <h4>Excel (.xlsx)</h4>
+                            <p class="text-muted mb-3">Formatted Excel spreadsheet<br/>Ideal for reports and data analysis</p>
+                            <button type="button" class="btn btn-success btn-lg"><i class="bi bi-download me-2"></i>Download Excel</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="export-card card-csv" onclick="alert('This is a preview. Download function is not available.')">
+                            <div class="export-icon"><i class="bi bi-filetype-csv"></i></div>
+                            <h4>CSV (.csv)</h4>
+                            <p class="text-muted mb-3">CSV format for import<br/>Ideal for importing into other systems</p>
+                            <button type="button" class="btn btn-outline-secondary btn-lg"><i class="bi bi-download me-2"></i>Download CSV</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: MASTER DATA ==================== -->
+            <div class="page-section" id="page-masterdata">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-gear me-2"></i>Master Data Management</h2>
+                        <span class="page-subtitle">Manage system master data</span>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4 fade-in anim-delay-1">
+                        <div class="master-card card-tanks">
+                            <div class="master-icon"><i class="bi bi-database"></i></div>
+                            <h5>Manage Tanks</h5>
+                            <p class="text-muted">Add, edit oil tank data, Gauge type (Manual/ATG)</p>
+                            <a href="#" onclick="showPage('tanks')" class="btn btn-primary"><i class="bi bi-arrow-right me-1"></i>Manage Tanks</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 fade-in anim-delay-2">
+                        <div class="master-card card-products">
+                            <div class="master-icon"><i class="bi bi-box-seam"></i></div>
+                            <h5>Manage Products</h5>
+                            <p class="text-muted">Add, edit oil product type data</p>
+                            <a href="#" onclick="showPage('products')" class="btn btn-success"><i class="bi bi-arrow-right me-1"></i>Manage Products</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 fade-in anim-delay-3">
+                        <div class="master-card card-categories">
+                            <div class="master-icon"><i class="bi bi-list-check"></i></div>
+                            <h5>Activity Categories</h5>
+                            <p class="text-muted">View all Oil Movement activity categories</p>
+                            <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#categoriesModal"><i class="bi bi-eye me-1"></i>View Categories</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: MANAGE TANKS ==================== -->
+            <div class="page-section" id="page-tanks">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-database-fill me-2"></i>Manage Tanks</h2>
+                        <span class="page-subtitle">Add, edit oil tank data</span>
+                    </div>
+                    <button class="btn btn-success"><i class="bi bi-plus-circle-fill me-1"></i>Add Tank</button>
+                </div>
+                <div class="card fade-in anim-delay-1">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead><tr><th>#</th><th>Tank No.</th><th>Product Type</th><th>Gauge Type</th><th>Capacity</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><span class="badge bg-light text-dark border">201</span></td><td>LPG</td><td><span class="badge bg-success">ATG</span></td><td class="font-monospace">15,000</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>2</td><td><span class="badge bg-light text-dark border">305</span></td><td>GASOLINE</td><td><span class="badge bg-success">ATG</span></td><td class="font-monospace">20,000</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>3</td><td><span class="badge bg-light text-dark border">502</span></td><td>DIESEL</td><td><span class="badge bg-warning text-dark">Manual</span></td><td class="font-monospace">30,000</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>4</td><td><span class="badge bg-light text-dark border">710</span></td><td>FUEL OIL</td><td><span class="badge bg-warning text-dark">Manual</span></td><td class="font-monospace">50,000</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>5</td><td><span class="badge bg-light text-dark border">901</span></td><td>CRUDE</td><td><span class="badge bg-success">ATG</span></td><td class="font-monospace">80,000</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>6</td><td><span class="badge bg-light text-dark border">902</span></td><td>CRUDE</td><td><span class="badge bg-success">ATG</span></td><td class="font-monospace">80,000</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== PAGE: MANAGE PRODUCTS ==================== -->
+            <div class="page-section" id="page-products">
+                <div class="page-header fade-in">
+                    <div class="page-header-info">
+                        <h2><i class="bi bi-box-seam-fill me-2"></i>Manage Products</h2>
+                        <span class="page-subtitle">Add, edit oil product type data</span>
+                    </div>
+                    <button class="btn btn-success"><i class="bi bi-plus-circle-fill me-1"></i>Add Product</button>
+                </div>
+                <div class="card fade-in anim-delay-1">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead><tr><th>#</th><th>Code</th><th>Name</th><th>Description</th><th>Status</th><th>Actions</th></tr></thead>
+                            <tbody>
+                                <tr><td>1</td><td><span class="badge bg-dark">CRUDE</span></td><td>Crude Oil</td><td class="text-muted">Unrefined petroleum</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>2</td><td><span class="badge bg-dark">GASOLINE</span></td><td>Gasoline</td><td class="text-muted">Motor gasoline</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>3</td><td><span class="badge bg-dark">DIESEL</span></td><td>Diesel</td><td class="text-muted">Diesel fuel</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>4</td><td><span class="badge bg-dark">LPG</span></td><td>Liquefied Petroleum Gas</td><td class="text-muted">LPG propane/butane</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>5</td><td><span class="badge bg-dark">FUEL OIL</span></td><td>Fuel Oil</td><td class="text-muted">Heavy fuel oil</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>6</td><td><span class="badge bg-dark">JET</span></td><td>Jet Fuel</td><td class="text-muted">Aviation turbine fuel</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                                <tr><td>7</td><td><span class="badge bg-dark">NAPHTHA</span></td><td>Naphtha</td><td class="text-muted">Light naphtha</td><td><span class="badge bg-success">Active</span></td><td><button class="btn btn-sm btn-outline-warning py-0 px-2"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger py-0 px-2"><i class="bi bi-trash"></i></button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="main-footer">
+            <div class="d-flex justify-content-between align-items-center">
+                <span><i class="bi bi-building me-1"></i>&copy; 2026 Digitalize Product Movement</span>
+                <span>Bangchak Sriracha Public Company Limited</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Categories Modal -->
+    <div class="modal fade" id="categoriesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content" style="border-radius: var(--radius-lg); overflow: hidden;">
+                <div class="modal-header" style="background: linear-gradient(135deg, var(--accent), var(--accent-light)); border: none;">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-list-check me-2"></i>Activity Categories</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead><tr><th class="ps-4">#</th><th>Full Name</th><th>Short Name</th></tr></thead>
+                        <tbody>
+                            <tr><td class="ps-4"><span class="badge bg-dark">1</span></td><td>CRUDE FEED TO APS-1 UNIT</td><td><span class="badge bg-light text-dark border">Crude Feed APS-1</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">2</span></td><td>CRUDE FEED TO APS-2 UNIT</td><td><span class="badge bg-light text-dark border">Crude Feed APS-2</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">3</span></td><td>D-86 FEED TO TAP UNIT</td><td><span class="badge bg-light text-dark border">D-86 Feed TAP</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">4</span></td><td>HVN SWEET FEED TO APS-1 or APS-2 UNIT</td><td><span class="badge bg-light text-dark border">HVN Sweet Feed</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">5</span></td><td>VGO COLD FEED TO FCCU UNIT</td><td><span class="badge bg-light text-dark border">VGO Cold Feed FCCU</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">6</span></td><td>PRODUCT FROM UNIT</td><td><span class="badge bg-light text-dark border">Product from Unit</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">7</span></td><td>NORMAL TRANSFER AND BLENDING (FROM TANK)</td><td><span class="badge bg-light text-dark border">Transfer/Blending (From)</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">8</span></td><td>NORMAL TRANSFER AND BLENDING (TO TANK)</td><td><span class="badge bg-light text-dark border">Transfer/Blending (To)</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">9</span></td><td>WATER DRAINAGE</td><td><span class="badge bg-light text-dark border">Water Drainage</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">10</span></td><td>FINISHED PRODUCT TRANSFER TO SRIRACHA MARKETING VIA PIPELINE (FROM TANK)</td><td><span class="badge bg-light text-dark border">Transfer to Sriracha (Pipeline)</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">11</span></td><td>FINISHED PRODUCT LOADING TO SRIRACHA MARKETING VIA TANK TRUCK (FROM TANK)</td><td><span class="badge bg-light text-dark border">Loading to Tank Truck</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">12</span></td><td>FINISHED PRODUCT TRANSFERRING TO THAPPLINE (FROM TANK)</td><td><span class="badge bg-light text-dark border">Transfer to Thappline</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">13</span></td><td>FINISHED PRODUCT LOADING TO BERTH (FROM TANK)</td><td><span class="badge bg-light text-dark border">Loading to Berth</span></td></tr>
+                            <tr><td class="ps-4"><span class="badge bg-dark">14</span></td><td>CRUDE OR PRODUCT RECEIVING FROM BERTH (BI / MBM or SBM) TO TANK</td><td><span class="badge bg-light text-dark border">Receiving from Berth</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sidebar toggle
+        function toggleSidebar() {
+            if (window.innerWidth >= 992) {
+                document.body.classList.toggle('sidebar-collapsed');
+            } else {
+                document.body.classList.toggle('sidebar-open');
+            }
+        }
+
+        // Page navigation
+        function showPage(page) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            // Show target page
+            var target = document.getElementById('page-' + page);
+            if (target) target.classList.add('active');
+
+            // Update sidebar active
+            document.querySelectorAll('.sidebar-link').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            var navLink = document.getElementById('nav-' + page);
+            if (navLink) navLink.classList.add('active');
+
+            // Update breadcrumb
+            var names = {
+                'dashboard': 'Dashboard',
+                'report': 'Daily Report',
+                'create': 'New Entry',
+                'search': 'Search / Filter',
+                'export': 'Export Report',
+                'masterdata': 'Master Data',
+                'tanks': 'Manage Tanks',
+                'products': 'Manage Products'
+            };
+            document.getElementById('breadcrumbPage').textContent = names[page] || page;
+
+            // Close mobile sidebar
+            document.body.classList.remove('sidebar-open');
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Live clock
+        function updateClock() {
+            var el = document.getElementById('navbarClock');
+            if (!el) return;
+            var now = new Date();
+            var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var hh = String(now.getHours()).padStart(2, '0');
+            var mm = String(now.getMinutes()).padStart(2, '0');
+            var ss = String(now.getSeconds()).padStart(2, '0');
+            el.innerHTML = '<i class="bi bi-clock me-1"></i>' + days[now.getDay()] + ' ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear() + ' &bull; ' + hh + ':' + mm + ':' + ss;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Inject colgroup for consistent column widths across all pumping tables
+        (function() {
+            // Standard table: 14 columns (TYPE OF OIL, Tank, Level, Water, Temp, Time, Gauger x2 sets, REMARK, ACTIONS)
+            var stdWidths = [
+                '9%',   /* TYPE OF OIL */
+                '5.5%', /* Tank No. */
+                '7%',   /* Level (open) */
+                '6%',   /* Water (open) */
+                '5.5%', /* Temp. (open) */
+                '5%',   /* Time (open) */
+                '6.5%', /* Gauger (open) */
+                '7%',   /* Level (close) */
+                '6%',   /* Water (close) */
+                '5.5%', /* Temp. (close) */
+                '5%',   /* Time (close) */
+                '6.5%', /* Gauger (close) */
+                '12%',  /* REMARK */
+                '5%'    /* ACTIONS */
+            ];
+            // Extended table: 16 columns (same + VESSEL, SHIPMENT #)
+            var extWidths = [
+                '8%',   /* TYPE OF OIL */
+                '5%',   /* Tank No. */
+                '6%',   /* Level (open) */
+                '5.5%', /* Water (open) */
+                '5%',   /* Temp. (open) */
+                '4.5%', /* Time (open) */
+                '6%',   /* Gauger (open) */
+                '6%',   /* Level (close) */
+                '5.5%', /* Water (close) */
+                '5%',   /* Temp. (close) */
+                '4.5%', /* Time (close) */
+                '6%',   /* Gauger (close) */
+                '9%',   /* VESSEL */
+                '8%',   /* SHIPMENT # */
+                '8.5%', /* REMARK */
+                '5%'    /* ACTIONS */
+            ];
+
+            document.querySelectorAll('.pumping-table').forEach(function(table) {
+                // Detect if this is a vessel table (has VESSEL header)
+                var firstRowThs = table.querySelectorAll('thead tr:first-child th');
+                var isVessel = false;
+                firstRowThs.forEach(function(th) {
+                    if (th.textContent.trim() === 'VESSEL') isVessel = true;
+                });
+                var widths = isVessel ? extWidths : stdWidths;
+                var colgroup = document.createElement('colgroup');
+                widths.forEach(function(w) {
+                    var col = document.createElement('col');
+                    col.style.width = w;
+                    colgroup.appendChild(col);
+                });
+                table.insertBefore(colgroup, table.firstChild);
+            });
+        })();
+    </script>
+</body>
+</html>
